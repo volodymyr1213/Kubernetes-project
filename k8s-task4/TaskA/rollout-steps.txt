@@ -1,0 +1,38 @@
+deployments "nginx-deploy"
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=nginx-deploy.yaml
+
+ Image:          nginx:1.14.0
+
+deployments "nginx-deploy"
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=nginx-deploy.yaml
+2         kubectl apply --filename=nginx-deploy.yaml
+
+Image:          nginx:1.15.1
+
+deployments "nginx-deploy"
+REVISION  CHANGE-CAUSE
+2         kubectl apply --filename=nginx-deploy.yaml
+3         kubectl create --filename=nginx-deploy.yaml
+
+
+ Image:          nginx:1.14.0
+
+COMMANDS
+
+kubectl create -f nginx-deploy.yaml    (nginx:1.14.0) 
+kubectl rollout history deployment nginx-deploy
+kubectl describe pod nginx-deploy-7877c6b45b-2v5vd | grep -i image
+kubectl rollout history deployment nginx-deploy >> rollout-steps.txt
+
+vim nginx-deploy.yaml  
+kubectl apply -f nginx-deploy.yaml     (nginx:1.15.1)
+kubectl rollout history deployment nginx-deploy
+kubectl describe pod nginx-deploy-7877c6b45b-2v5vd | grep -i image
+kubectl rollout history deployment nginx-deploy >> rollout-steps.txt
+
+kubectl rollout undo deployment --to-revision=1    (now its again nginx:1.14.0)
+kubectl rollout history deployment nginx-deplo
+kubectl describe pod nginx-deploy-7877c6b45b-2v5vd | grep -i image
+kubectl rollout history deployment nginx-deploy >> rollout-steps.txt
