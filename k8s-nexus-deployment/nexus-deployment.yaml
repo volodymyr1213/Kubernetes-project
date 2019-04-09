@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nexus-pvc
+  namespace: tools
+  labels:
+    app: nexus
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nexus-deployment
+  namespace: tools
+  labels:
+    app: nexus
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+        - name: nexus-container
+          image: "fsadykov/docker-nexus"
+          env:
+            - name: INSTALL4J_ADD_VM_PARAMS
+              value: "-Xms1200M -Xmx1200M -XX:MaxDirectMemorySize=2G -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 4800Mi
+          ports:
+            - containerPort: 8081
+              name: nexus-http
+            - containerPort: 8085
+              name: docker-repo
+          volumeMounts:
+            - name: nexus-volume
+              mountPath: /nexus-data
+      volumes:
+        - name: nexus-volume
+          persistentVolumeClaim:
+            claimName: nexus-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-service
+  namespace: tools
+spec:
+  selector:
+    app: nexus
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8081
+      protocol: TCP
+      name: http
+    - port: 8085
+      targetPort: 8085
+      protocol: TCP
+      name: docker-repo
