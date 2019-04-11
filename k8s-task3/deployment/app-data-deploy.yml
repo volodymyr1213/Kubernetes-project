@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    app: nginx-app
+spec:
+  type: NodePort
+  ports:
+    - name: http 
+      nodePort: 31013   
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: nginx-app
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: app-data
+ labels:
+   app: nginx-app
+spec:
+ storageClassName: hostpath
+ capacity:
+  storage: 4Gi
+ accessModes:
+  - ReadWriteOnce
+ hostPath:
+  path: "/home/newfolder/data/app-data"
+  type: Directory
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-data-claim
+  labels:
+    app: nginx-app
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx-app
+spec:
+  volumes:
+  - name: app-data
+    persistentVolumeClaim:
+     claimName: app-data-claim
+  containers: 
+  - name: nginx-app
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+      - name: app-data
+        mountPath: /usr/share/nginx/html/
