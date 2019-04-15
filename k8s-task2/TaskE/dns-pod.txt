@@ -1,0 +1,11 @@
+NAME                 READY     STATUS    RESTARTS   AGE       IP           NODE
+centos               1/1       Running   0          11m       10.24.1.66   gke-k8-cluster-1-default-pool-ba518358-sbdv
+nginx-headless-pod   1/1       Running   0          10m       10.24.1.67   gke-k8-cluster-1-default-pool-ba518358-sbdv
+
+
+
+Server:         10.27.240.10
+Address:        10.27.240.10#53
+
+Name:   nginx-headless-pod.nginx-headless-pod-service.default.svc.cluster.local
+Address: 10.24.1.67

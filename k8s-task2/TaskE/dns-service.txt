@@ -1,0 +1,11 @@
+NAME                         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE       SELECTOR
+kubernetes                   ClusterIP   10.27.240.1   <none>        443/TCP   12m       <none>
+nginx-headless-pod-service   ClusterIP   None          <none>        80/TCP    11m       app=nginx-headless-pod
+
+
+Server:         10.27.240.10
+Address:        10.27.240.10#53
+
+Non-authoritative answer:
+Name:   nginx-headless-pod-service.default.svc.cluster.local
+Address: 10.24.1.67

@@ -1,0 +1,18 @@
+Task:
+A) Create a Replicaset off of nginx container with 3 replicas.
+Expose Replicaset at port 81, use NodePort service, call it "k8-service"
+
+B) Create a ReplicationController "nginx-test", expose it with NodePort service. Service should listen on port 80, name of the service has to be "nginx-svc".
+
+C) Ensure a single instance of Pod ubuntu is running on each node of the Kubernetes cluster where ubuntu also represents the image name which has to be used. Do not override any taints currently in place.
+Use DaemonSets to complete this task and use "ubuntu-ds" as DaemonSet name.
+
+D) Check to see how many nodes are ready (not including nodes tainted NoSchedule)
+
+E) Create a ReplicasSet as follows:
+
+   - Name: nginx-dns
+   - Exposed via a service: nginx-dns
+   - Ensure that te service & pod are accessible via their respective DNS records
+   - The container(s) within any Pod(s) running as a part of this ReplicaSet should use the nginx image.
+Next, use the utility nslookup to look up the DNS records of the service & pod and write the output to service-dns.txt and pod-dns.txt respectively.
