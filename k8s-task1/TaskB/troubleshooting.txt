@@ -1,0 +1,25 @@
+1) We need to check the current state of the Pod, are they running?
+kubectl describe pods ${POD_NAME}
+
+2) If our pod is crashing or otherwise unhealthy we need to look at the logs of the current container
+
+kubectl logs ${POD_NAME} ${CONTAINER_NAME}
+If your container has previously crashed, you can access the previous container’s crash log with:
+
+kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
+
+Alternately, you can run commands inside that container with exec:
+
+kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
+kubectl exec cassandra -- cat /var/log/cassandra/system.log
+
+3)My pod is running but not doing what I told it to do!
+The first thing to do is to delete your pod and try creating it again with the --validate option. For example, 
+run kubectl create --validate -f mypod.yaml. If you misspelled command as commnd then will give an error like this:
+
+I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
+I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
+pods/mypod
+
+4) IF it`s still doesn`t go to this link:
+https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/

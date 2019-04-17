@@ -1,0 +1,2 @@
+NAME        CPU(cores)   MEMORY(bytes)   
+myapp-pod   16m          19Mi            
