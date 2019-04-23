@@ -33,7 +33,7 @@ spec:
           image: "gcr.io/hightowerlabs/jira-deployment:7.3.6-standalone"
           ports:
             - containerPort: 8000
-              name: nexus-http
+              name: jira-http
           resources:
             requests:
               cpu: "2"
@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: jira-pvc
           persistentVolumeClaim:
-            claimName: nexus-pvc
+            claimName: jira-pvc
 
 ---
 apiVersion: v1
