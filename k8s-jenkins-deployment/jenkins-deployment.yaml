@@ -40,12 +40,9 @@ spec:
         - containerPort: 8080
         - containerPort: 50000
         volumeMount:
-          - mountPath: /var/run
-            name: jenkins-pvc
+          - name: jenkins-pvc
+            mountPath: /var/run
       volumes:
-        - name: jenkins-pvc
-          hostPath:
-            path: /var/run
         - name: jenkins-pvc
           persistentVolumeClaim:
             claimName: jenkins-pvc
