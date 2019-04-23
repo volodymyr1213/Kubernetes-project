@@ -30,6 +30,7 @@ spec:
     spec:
       containers:
         - image: gcr.io/hightowerlabs/jira:7.3.6-standalone
+          imagePullPolicy: Always
           name: jira-deployment
           ports:
             - containerPort: 8000
