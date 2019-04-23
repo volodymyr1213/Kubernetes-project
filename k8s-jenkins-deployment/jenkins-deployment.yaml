@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: tools
+  labels:
+    name: jenkins-deployment
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-deployment
+      name: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins-deployment
+        name: jenkins
+    spec:
+      containers:
+      - stdin: true
+        tty: true
+        name: jenkins
+        imagePullPolicy: Always
+        image: fsadykov/centos_jenkins:0.2
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+
+        volumeMount:
+          - mountPath: /var/run
+            name: jenkins-pvc
+
+          - mountPath: /root/.jenkins
+            name: jenkins-home
+      volumes:
+        - name: jenkins-pvc
+          hostPath:
+            path: /var/run
+        - name: jenkins-pvc
+          persistentVolumeClaim:
+            claimName: jenkins-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jenkins-deployment
+  name: jenkins-service
+  namespace: tools
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: jenkins-deployment
+  type: LoadBalancer
