@@ -31,14 +31,10 @@ spec:
       containers:
         - name: jira-deployment
           image: "gcr.io/hightowerlabs/jira-deployment:7.3.6-standalone"
-          resources:
-            requests:
-              cpu: 500m
-              memory: 2G
           ports:
-            - containerPort: 8000
-              protocol: TCP
-              name: http
+          - containerPort: 8000
+            protocol: TCP
+            name: http
           volumeMounts:
             - name: jira-pvc
               mountPath: /var/lib/jira
