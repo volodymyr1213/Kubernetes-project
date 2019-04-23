@@ -37,10 +37,11 @@ spec:
               memory: 4800Mi
           ports:
             - containerPort: 8000
-              name: jira-http
+              protocol: TCP
+              name: http
           volumeMounts:
             - name: jira-pvc
-              mountPath: /opt/jira
+              mountPath: /var/lib/jira
       volumes:
         - name: jira-pvc
           persistentVolumeClaim:
