@@ -28,20 +28,20 @@ spec:
       labels:
         app: jira-deployment
     spec:
+      volumes:
+        - name: jira-pvc
+          persistentVolumeClaim:
+            claimName: jira-pvc
       containers:
         - name: jira-deployment
           image: cptactionhank/atlassian-jira
-          imagePullPolicy: IfNotPresent
+          # imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8090
             protocol: TCP
           volumeMounts:
             - name: jira-pvc
               mountPath: /var/lib/jira
-      volumes:
-        - name: jira-pvc
-          persistentVolumeClaim:
-            claimName: jira-pvc
 
 ---
 apiVersion: v1
