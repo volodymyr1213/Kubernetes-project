@@ -35,10 +35,10 @@ spec:
             requests:
               cpu: "1"
               memory: "2G"
-          ports:
-          - containerPort: 8000
-            protocol: TCP
-            name: http
+          # ports:
+          # - containerPort: 8000
+          #   protocol: TCP
+          #   name: http
           volumeMounts:
             - name: jira-pvc
               mountPath: /var/run
