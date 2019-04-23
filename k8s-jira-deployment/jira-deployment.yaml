@@ -33,9 +33,9 @@ spec:
           imagePullPolicy: Always
           name: jira-deployment
           ports:
-            - containerPort: 8000
-              protocol: TCP
-              name: http
+          - containerPort: 8000
+            protocol: TCP
+            name: http
           volumeMounts:
             - name: jira-pvc
               mountPath: /var/run
