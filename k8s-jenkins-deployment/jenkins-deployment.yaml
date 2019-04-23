@@ -42,8 +42,6 @@ spec:
         volumeMount:
           - mountPath: /var/run
             name: jenkins-pvc
-          - mountPath: /root/.jenkins
-            name: jenkins-home
       volumes:
         - name: jenkins-pvc
           hostPath:
