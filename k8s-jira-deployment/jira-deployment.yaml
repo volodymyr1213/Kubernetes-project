@@ -29,8 +29,8 @@ spec:
         app: jira-deployment
     spec:
       containers:
-        - name: jira-deployment
-          image: "gcr.io/hightowerlabs/jira-deployment:7.3.6-standalone"
+        - image: "gcr.io/hightowerlabs/jira-deployment:7.3.6-standalone"
+          name: jira-deployment
           resources:
             requests:
               cpu: "1"
