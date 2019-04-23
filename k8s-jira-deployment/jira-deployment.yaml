@@ -29,16 +29,15 @@ spec:
         app: jira-deployment
     spec:
       containers:
-        - image: gcr.io/hightowerlabs/jira:7.3.6-standalone
-          imagePullPolicy: Always
-          name: jira-deployment
+        - name: jira-deployment
+          image: gcr.io/hightowerlabs/jira:7.3.6-standalone
+          imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8000
             protocol: TCP
-            name: http
           volumeMounts:
             - name: jira-pvc
-              mountPath: /var/run
+              mountPath: /var/lib/jira
       volumes:
         - name: jira-pvc
           persistentVolumeClaim:
