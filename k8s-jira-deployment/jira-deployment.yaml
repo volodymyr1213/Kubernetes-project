@@ -52,11 +52,11 @@ metadata:
     app: jira-deployment
   namespace: tools
 spec:
-  selector:
-    app: jira-deployment
   ports:
     - port: 80
       targetPort: 8000
       protocol: TCP
       name: http
+  selector:
+    app: jira-deployment
   type: LoadBalancer
