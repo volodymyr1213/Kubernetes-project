@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jira-pvc
+  namespace: tools
+  labels:
+    app: jira-deployment
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: jira-deployment
+  name: jira-deployment
+  namespace: tools
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jira-deployment
+    spec:
+      containers:
+        - name: jira-deployment
+          image: "gcr.io/hightowerlabs/jira-deployment:7.3.6-standalone"
+          ports:
+            - containerPort: 8000
+              name: nexus-http
+          resources:
+            requests:
+              cpu: "2"
+              memory: "2G"
+          volumeMounts:
+            - name: jira-pvc
+              mountPath: /opt/jira
+      volumes:
+        - name: jira-pvc
+          persistentVolumeClaim:
+            claimName: nexus-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira-service
+  namespace: tools
+spec:
+  selector:
+    app: jira-deployment
+    type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  
