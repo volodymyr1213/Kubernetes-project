@@ -11,7 +11,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 30Gi
 
 ---
 apiVersion: extensions/v1beta1
@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: jira-deployment
-          image: gcr.io/hightowerlabs/jira:7.3.6-standalone
+          image: cptactionhank/atlassian-jira
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8000
