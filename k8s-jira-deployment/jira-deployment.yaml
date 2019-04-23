@@ -55,7 +55,7 @@ metadata:
 spec:
   selector:
     app: jira-deployment
-    type: LoadBalancer
+  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8000
