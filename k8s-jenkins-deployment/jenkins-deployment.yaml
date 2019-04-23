@@ -39,7 +39,7 @@ spec:
         ports:
         - containerPort: 8080
         - containerPort: 50000
-        volumeMount:
+        volumeMounts:
           - name: jenkins-pvc
             mountPath: /var/run
       volumes:
