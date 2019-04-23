@@ -37,7 +37,7 @@ spec:
           image: cptactionhank/atlassian-jira
           # imagePullPolicy: IfNotPresent
           ports:
-          - containerPort: 8090
+          - containerPort: 8080
             protocol: TCP
           volumeMounts:
             - name: jira-pvc
@@ -54,8 +54,8 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8090
+      port: 8080
+      targetPort: 8080
 
   selector:
     app: jira-deployment
