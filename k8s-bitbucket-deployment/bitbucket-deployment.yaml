@@ -36,8 +36,9 @@ spec:
               cpu: 500m
               memory: 4800Mi
           ports:
-            - containerPort: 8888
-              name: bitbucket-http
+            - containerPort: 7990
+              protocol: TCP
+              name: http
           volumeMounts:
             - name: bitbucket-volume
               mountPath: /bitbucket-data
@@ -58,6 +59,6 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 8888
+      targetPort: 7990
       protocol: TCP
       name: http
