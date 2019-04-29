@@ -30,3 +30,8 @@ spec:
       - backend:
           serviceName: grafana-service
           servicePort: 8082
+
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.222.235.115
