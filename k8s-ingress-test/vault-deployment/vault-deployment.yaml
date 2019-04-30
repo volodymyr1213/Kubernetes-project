@@ -31,7 +31,7 @@ spec:
       - image: vault
         name: vault
         ports:
-        - containerPort: 8083
+        - containerPort: 8282
           protocol: TCP
         securityContext:
          capabilities:
@@ -63,7 +63,7 @@ spec:
   ports:
     - name: vault
       port: 8083
-      targetPort: 8083
+      targetPort: 8282
   selector:
     app: vault-deployment
   type: NodePort
