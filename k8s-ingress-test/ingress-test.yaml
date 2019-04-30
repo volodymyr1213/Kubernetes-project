@@ -10,21 +10,21 @@ metadata:
 spec:
   rules:
 
-  - host: vault.murodbey.com
+  - host: vault.shermat.com
     http:
       paths:
       - backend:
           serviceName: vault-service
           servicePort: 8083
 
-  - host: nexus.murodbey.com
+  - host: nexus.shermat.com
     http:
       paths:
       - backend:
           serviceName: nexus-service
           servicePort: 8081
 
-  - host: grafana.murodbey.com
+  - host: grafana.shermat.com
     http:
       paths:
       - backend:
