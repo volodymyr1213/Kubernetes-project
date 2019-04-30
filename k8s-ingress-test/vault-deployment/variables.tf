@@ -1,2 +1,0 @@
-variable "secret" {}
-variable "namespace" {}
