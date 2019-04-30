@@ -76,7 +76,7 @@ resource "kubernetes_deployment" "vault" {
           image = "vault"
 
           port {
-            container_port = 8200
+            container_port = 8083
             protocol       = "TCP"
           }
 
@@ -123,7 +123,7 @@ resource "kubernetes_service" "vault_service" {
     port {
       protocol    = "TCP"
       port        = 8083
-      target_port = 8200
+      target_port = 8083
     }
 
     type = "NodePort"

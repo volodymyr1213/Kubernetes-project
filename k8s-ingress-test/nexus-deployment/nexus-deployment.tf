@@ -62,7 +62,7 @@ resource "kubernetes_deployment" "nexus-deployment" {
 
           port {
             name           = "nexus-http"
-            container_port = 8282
+            container_port = 8081
           }
 
           port {
@@ -105,7 +105,7 @@ resource "kubernetes_service" "nexus-service" {
       name        = "http"
       protocol    = "TCP"
       port        = 8081
-      target_port = 8282
+      target_port = 8081
     }
 
     port {

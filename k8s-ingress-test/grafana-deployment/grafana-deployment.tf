@@ -77,7 +77,7 @@ resource "kubernetes_deployment" "grafana-deployment" {
           image = "grafana/grafana:4.2.0"
 
           port {
-            container_port = 3000
+            container_port = 8082
             protocol       = "TCP"
           }
 
@@ -159,7 +159,7 @@ resource "kubernetes_service" "grafana-service" {
     port {
       protocol    = "TCP"
       port        = 8082
-      target_port = 3000
+      target_port = 8082
     }
 
     type = "NodePort"
