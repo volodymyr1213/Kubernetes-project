@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: testapp
+  name: testapp
+  namespace: test
+spec:
+  containers:
+  - image: glassfish
+    imagePullPolicy: Always
+    name: glassfish
+    resources:
+      limits:
+        memory: "1Gi"
+        cpu: "200m"

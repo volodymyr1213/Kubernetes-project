@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: probe-app
+  name: probe-app
+spec:
+  containers:
+  - image: evolvecybertraining/probe-app:v1
+    name: probe-app
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+    readinessProbe:
+      httpGet:
+        path: /started
+        port: 8080
+    resources: {}
+
